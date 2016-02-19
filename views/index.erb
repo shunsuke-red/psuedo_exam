@@ -1,75 +1,41 @@
-<form class="pure-form">
-  <fieldset>
+<form action="/create" method ="post" class="pure-form">
+   <fieldset>
     <legend>新しいメモを追加</legend>
+     <input type="text" placeholder="タイトル" name="title" >
+     <input type="text" placeholder="内容" name="body" >
 
-    <input type="text" placeholder="タイトル">
-    <input type="text" placeholder="内容">
-
-    <label for="categories">カテゴリ</label>
-    <select id="categories">
-      <option></option>
-    </select>
-
-    <button type="submit" class="pure-button pure-button-primary">追加</button>
+     <label for="category">カテゴリ</label>
+     <select id="category" name="category">
+      <% @categories.each do |category| %>
+       <option value="<%= category.id %>"><%= category.name %></option>
+      <% end %>
+     </select>
+    <input type="submit" class="pure-button pure-button-primary">
   </fieldset>
 </form>
 
+
 <div class="ui cards">
-  <div class="ui card">
-    <div class="content">
-      <div class="header">
-        <メモ1のタイトル>
-      </div>
-      <div class="meta">
-        <メモ1のカテゴリ>
-      </div>
-    </div>
-    <div class="content">
-      <div class="description">
-        <メモ1の内容>
-      </div>
-    </div>
-    <div class="extra content">
-      <button class="ui button"><a href="#">Edit</a></button>
-      <button class="ui button"><a href="#">Delete</a></button>
-    </div>
-  </div>
-  <div class="ui card">
-    <div class="content">
-      <div class="header">
-        <メモ2のタイトル>
-      </div>
-      <div class="meta">
-        <メモ2のカテゴリ>
-      </div>
-    </div>
-    <div class="content">
-      <div class="description">
-        <メモ2の内容>
-      </div>
-    </div>
-    <div class="extra content">
-      <button class="ui button"><a href="#">Edit</a></button>
-      <button class="ui button"><a href="#">Delete</a></button>
-    </div>
-  </div>
-  <div class="ui card">
-    <div class="content">
-      <div class="header">
-        <メモ3のタイトル>
-      </div>
-      <div class="meta">
-        <メモ3のカテゴリ>
-      </div>
-    </div>
-    <div class="content">
-      <div class="description">
-        <メモ3の内容>
-      </div>
-    </div>
-    <div class="extra content">
-      <button class="ui button"><a href="#">Edit</a></button>
-      <button class="ui button"><a href="#">Delete</a></button>
-    </div>
-  </div>
+  <% @memos.each do |memo| %>
+     <div class="ui card">
+       <div class="content">
+         <div class="header">
+           <p><%= memo.title %></p>
+         </div>
+         <div class="meta">
+           <p><%= memo.category.name %></p>
+         </div>
+       </div>
+       <div class="content">
+         <div class="description">
+           <p><%= memo.body %></p>
+         </div>
+       </div>
+       <div class="extra content">
+         <button class="ui button"><a href="/edit/<%= memo.id %>">Edit</a></button>
+         <button class="ui button"><a href="/delete/<%= memo.id %>">Delete</a></button>
+       </div>
+       
+     </div>
+   <% end %>
 </div>
